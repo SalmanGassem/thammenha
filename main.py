@@ -1,14 +1,16 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
+from sklearn.preprocessing import LabelEncoder
+import pandas as pd
 
 app = FastAPI()
 
 ################ Loading Model ########################################
 
-# Load the model and scaler
-model = joblib.load('usa_model.joblib')
-# scaler = joblib.load('kmens_scaler.joblib')
+# # Load the model and scaler
+# model = joblib.load('usa_model.joblib')
+# scaler = joblib.load('scaler.joblib')
 
 ################ Model ################################################
 
@@ -56,22 +58,34 @@ def preprocess_features(input_features: InputFeatures):
         'Accident_Impact': input_features.Accident_Impact
     }
 
+    df_processed = pd.DataFrame(dict_f)
+    categorical_columns = df_processed.select_dtypes(include=['object', 'category']).columns
+        
+    for col in categorical_columns:
+        df_processed[col] = scaler.fit_transform(df_processed[col].astype(str))
+    
+    return df_processed
     # Convert dictionary values to a list in the correct order
-    features_list = [dict_f[key] for key in sorted(dict_f)]
+    # features_list = [dict_f[key] for key in sorted(dict_f)]
 
     # Scale the input features
-    scaled_features = scaler.transform([list(dict_f.values())])
+    # scaled_features = scaler.transform([list(dict_f.values())])
 
-    return scaled_features
+    # return features_list
 
 ############### Predicting ############################################
 
-# Prediction endpoint
+# # Prediction endpoint
+# @app.post("/predict")
+# async def predict(input_features: InputFeatures):
+#     data = preprocess_features(input_features)
+#     y_pred = model.predict(data)
+#     return {"prediction": y_pred.tolist()[0]}
+
+# Fake Prediction endpoint
 @app.post("/predict")
-async def predict(input_features: InputFeatures):
-    data = preprocess_features(input_features)
-    y_pred = model.predict(data)
-    return {"prediction": y_pred.tolist()[0]}
+async def predict():
+    return "87934"
 
 #######################################################################
 
