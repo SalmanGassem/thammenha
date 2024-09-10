@@ -42,6 +42,12 @@ Develop a Machine Learning model that learns from the KSA Used Car market to be 
 
 The model training is still undergoing.
 
+### EDA for the Saudi Data
+
+The dataset consists of the following columns:
+
+'brand', 'model', 'year', 'price', 'kilometer', 'fuel_type', 'gear_type', 'engine_size', 'drivetrain', 'trim', 'exterior_color', 'interior_color', 'seat_number', 'origin'
+
 ### Team Members:
 
  - Ahmed Alsubhi
