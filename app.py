@@ -1,16 +1,18 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import pandas as pd 
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import pandas as pd
 import joblib
-import numpy as np 
+import numpy as np
+from sklearn.metrics.pairwise import cosine_distances
+
+# Define your Flask app
+app = Flask(__name__)
+CORS(app)  # Enable CORS
 
 
-# KSA
 def map_user_input_to_df(user_input):
-        
     '''
-    map the user input to the same features of the model
-
+    Map the user input to the same features of the model
     '''
     mapping = {
         'Car_Brands': {
@@ -70,7 +72,7 @@ def map_user_input_to_df(user_input):
         'Car_Interior_Colors_Grey': [False],
         'Car_Origins_Saudi': [False]
     })
-    
+
     for key, value in user_input.items():
         if key in mapping:
             if value in mapping[key]:
@@ -78,65 +80,61 @@ def map_user_input_to_df(user_input):
 
     return result
 
-# KSA
+
 def scale(df):
     '''
-
-    Scale numeric Data only!
-
-    
+    Scale numeric data only!
     '''
-
     scaler = joblib.load('Scaler_SA.joblib')
     numeric_columns = ['Car_Kilometers', 'Car_Engine_Sizes', 'Car_Seat_Numbers']
     scaled_numeric = scaler.transform(df[numeric_columns])
-    scaled_df = pd.DataFrame(scaled_numeric, columns=numeric_columns, index=df.index)
+    scaled_df = pd.DataFrame(scaled_numeric, columns=numeric_columns,
+                             index=df.index)
     df[numeric_columns] = scaled_df
-    return df 
+    return df
 
-def predict_ksa(df): 
-    from sklearn.metrics.pairwise import cosine_distances
+
+def predict_ksa(df):
     model = joblib.load('Knn_SA.joblib')
     scaled_data = pd.read_csv('Data.csv')
     if 'Unnamed: 0' in scaled_data.columns:
-        scaled_data.drop(columns = 'Unnamed: 0', inplace = True)
+        scaled_data.drop(columns='Unnamed: 0', inplace=True)
     values = scaled_data.values
     distance = cosine_distances(df, values)
-
     return model.predict(distance)
 
 
- #metric='precomputed', n_neighbors=7)
-app = FastAPI()
+@app.route('/predict/ksa', methods=['POST'])
+def predict_car_price():
+    data = request.json
 
-class CarInput(BaseModel):
-    Car_Brands: str
-    Car_Models: str
-    Car_Years: int
-    Car_Kilometers: int
-    Car_Fuel_Types: str
-    Car_Gear_Types: str
-    Car_Engine_Sizes: float
-    Car_Drivetrains: str
-    Car_Extensions: str
-    Car_Exterior_Colors: str
-    Car_Interior_Colors: str
-    Car_Seat_Numbers: int
-    Car_Origins: str
+    # Check for missing data
+    required_fields = [
+        'Car_Brands', 'Car_Models', 'Car_Years', 'Car_Kilometers',
+        'Car_Fuel_Types', 'Car_Gear_Types', 'Car_Engine_Sizes',
+        'Car_Drivetrains', 'Car_Extensions', 'Car_Exterior_Colors',
+        'Car_Interior_Colors', 'Car_Seat_Numbers', 'Car_Origins'
+    ]
+    missing_fields = [field for field in required_fields if field not in data]
+    if missing_fields:
+        return jsonify({'error': f'Missing fields: {missing_fields}'}), 400
+
+    try:
+        user_input = data
+        df = map_user_input_to_df(user_input)
+        df = scale(df)
+        prediction = predict_ksa(df)
+        return jsonify({'Predicted_Price': prediction[0]})
+    except Exception as e:
+        print(f"Error processing request: {e}")  # Log the error for debugging
+        return jsonify({'error': str(e)}), 500
 
 
-@app.post("/predict/ksa")
-async def map_car_data(car_input: CarInput):
+# Test endpoint to ensure API is running
+@app.route('/test', methods=['GET'])
+def test_endpoint():
+    return jsonify({"message": "API is working!"})
 
-    user_input = car_input.dict()
-    
-    df = map_user_input_to_df(user_input)
-    df = scale(df)
-    prediction = predict_ksa(df)
-    print(prediction)
-    return {'Predicted_Price': prediction[0]}
 
-# Fake US Prediction endpoint
-@app.post("/predict/us")
-async def predict():
-    return "72472"
+if __name__ == '__main__':
+    app.run(debug=True)
