@@ -65,7 +65,7 @@ The dataset consists of the following columns:
 
 The Saudi market prefers White cars the most with Beige interior. Possibly due to the extreme heat weather.
 
-![alt text](ext_color.png   )
+![alt text](ext_color.png)
 
 ![alt text](int_color)
 
