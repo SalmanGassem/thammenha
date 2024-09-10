@@ -75,7 +75,14 @@ def preprocess_features(input_features: InputFeatures):
 
 ############### Predicting ############################################
 
-# # Prediction endpoint
+# # KSA Prediction endpoint
+# @app.post("/predict")
+# async def predict(input_features: InputFeatures):
+#     data = preprocess_features(input_features)
+#     y_pred = model.predict(data)
+#     return {"prediction": y_pred.tolist()[0]}
+
+# # US Prediction endpoint
 # @app.post("/predict")
 # async def predict(input_features: InputFeatures):
 #     data = preprocess_features(input_features)
@@ -83,9 +90,14 @@ def preprocess_features(input_features: InputFeatures):
 #     return {"prediction": y_pred.tolist()[0]}
 
 # Fake Prediction endpoint
-@app.post("/predict")
+@app.post("/predict/ksa")
 async def predict():
     return "87934"
+
+# Fake Prediction endpoint
+@app.post("/predict/us")
+async def predict():
+    return "72472"
 
 #######################################################################
 
