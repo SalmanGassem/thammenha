@@ -74,6 +74,10 @@ And it seems as though the pricing does not seem to be related to the car's Kilo
 <!-- ![alt text](corr.png) -->
 <img src="corr.png" alt="" width="300"/>
 
+#### Initial Base Linear Regression model
+
+![alt text](LinearR.png)
+
 ### Team Members:
 
  - Ahmed Alsubhi
