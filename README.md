@@ -67,7 +67,7 @@ The Saudi market prefers White cars the most with Beige interior. Possibly due t
 
 ![alt text](ext_color.png)
 
-![alt text](int_color)
+![alt text](int_color.png)
 
 And it seems as though the pricing does not seem to be related to the car's Kilometers as much as previously believe so. Perhaps people here value the car's brand the most when it comes to estimating the car's value?
 
