@@ -6,4 +6,4 @@ Tuwaiq Data Science &amp; Machine Learning Capstone
  - Ahmed Alsubhi
  - Faisal Alzahrani
  - Salman Gassem
- - Ziyad aljaser
+ - Ziyad Aljaser
