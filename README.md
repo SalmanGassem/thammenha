@@ -46,7 +46,24 @@ The model training is still undergoing.
 
 The dataset consists of the following columns:
 
-'brand', 'model', 'year', 'price', 'kilometer', 'fuel_type', 'gear_type', 'engine_size', 'drivetrain', 'trim', 'exterior_color', 'interior_color', 'seat_number', 'origin'
+1. Brand
+2. Model
+3. Year
+4. Price
+5. Kilometer
+6. Fuel Type
+7. Gear Type
+8. Engine Size
+9. Drivetrain
+10. Trim
+11. Exterior Color
+12. Interior Color
+13. Seat Number
+14. Origin
+
+#### Insights
+
+![alt text](ext_color.png)
 
 ### Team Members:
 
