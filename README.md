@@ -3,6 +3,7 @@ Tuwaiq Data Science &amp; Machine Learning Capstone
 
 The current situation in the Saudi Used Car Market is in dire need of tools and services to simplify the process of evaluating cars.
 
+### Issues found
 Websites are:
  1. Unregulated pricing.
  2. Personal opinions.
