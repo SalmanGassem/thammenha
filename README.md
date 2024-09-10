@@ -78,6 +78,10 @@ And it seems as though the pricing does not seem to be related to the car's Kilo
 
 ![alt text](LinearR.png)
 
+#### Initial Base KNN model
+
+![alt text](KNN.png)
+
 ### Team Members:
 
  - Ahmed Alsubhi
