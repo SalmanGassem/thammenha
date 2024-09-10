@@ -26,7 +26,7 @@ Develop a Machine Learning model that learns from the KSA Used Car market to be 
 #### Objectives:
  - Collect local used car data.
  - Create a Machine Learning model using the data collected.
- - Develop a separate model on a separate dataset for comparison purposes
+ - Develop a separate model on a separate dataset for comparison purposes.
 
 #### Implementation Plan:
  - Deliver the service through a website.
@@ -35,7 +35,12 @@ Develop a Machine Learning model that learns from the KSA Used Car market to be 
 
 ### Data Collection
 
-We have collected data from the website Syarah.com, one of the 
+ - The KSA data was scraped from the website Syarah.com.
+ - Collected a dataset from the USA market to compare from websites such as Kaggle, Medium, and so on.
+
+### Model Training
+
+The model training is still undergoing.
 
 ### Team Members:
 
