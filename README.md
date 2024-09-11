@@ -3,6 +3,13 @@ Tuwaiq Data Science &amp; Machine Learning Capstone
 
 The current situation in the Saudi Used Car Market is in dire need of tools and services to simplify the process of evaluating cars.
 
+### Team Members:
+
+ - Ahmed Alsubhi
+ - Faisal Alzahrani
+ - Salman Gassem
+ - Ziyad Aljaser
+
 ### Problem Statement
 Websites issues:
  1. Unregulated pricing.
@@ -82,9 +89,3 @@ And it seems as though the pricing does not seem to be related to the car's Kilo
 
 ![alt text](KNN.png)
 
-### Team Members:
-
- - Ahmed Alsubhi
- - Faisal Alzahrani
- - Salman Gassem
- - Ziyad Aljaser
